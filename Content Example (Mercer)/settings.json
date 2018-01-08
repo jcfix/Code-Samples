@@ -1,0 +1,135 @@
+{
+  "form": {
+    "sections": {
+      "_type": "array",
+      "_object": {
+        "video": {
+          "jpg": {
+            "_label": "Poster jpg",
+            "_type": "file"
+          },
+          "webm": {
+            "_label": "webm Video",
+            "_type": "file"
+          },
+          "mp4": {
+            "_label": "mp4 Video",
+            "_type": "file"
+          }
+        },
+        "heroAsset": {
+          "_label": "Is this a wide image or a video that should stretch on mobile? (Hero setting)",
+          "_type": "select",
+          "_options": [
+            {
+              "_label": "Yes",
+              "_value": "true"
+            },
+            {
+              "_label": "No",
+              "_value": "false"
+            }
+          ]
+        },
+        "image": {
+          "_label": "Image (leave empty for none)",
+          "_type": "file"
+        },
+        "content": {
+          "bodyContent": {
+            "_label": "Body content (please use appropriate tags for headings, subheadings, paragraphs, lists, and blockquotes)",
+            "_type": "text"
+          }
+        },
+        "textAlign": {
+          "_label": "Text alignment",
+          "_type": "select",
+          "_options": [
+            {
+              "_label": "Left",
+              "_value": "left"
+            },
+            {
+              "_label": "Center",
+              "_value": "center"
+            }
+          ]
+        },
+        "centerVertically": {
+          "_label": "Center content vertically (unavailable on IE)",
+          "_type": "select",
+          "_options": [
+            {
+              "_label": "Yes",
+              "_value": true
+            },
+            {
+              "_label": "No",
+              "_value": false
+            }
+          ]
+        },
+        "textPosition": {
+          "_label": "Text position",
+          "_type": "select",
+          "_options": [
+            {
+              "_label": "Left",
+              "_value": "left"
+            },
+            {
+              "_label": "Right",
+              "_value": "right"
+            },
+            {
+              "_label": "Center",
+              "_value": "center"
+            }
+          ]
+        },
+        "invert": {
+          "_label": "Invert text to white",
+          "_type": "select",
+          "_options": [
+            {
+              "_label": "Yes",
+              "_value": "true"
+            },
+            {
+              "_label": "No",
+              "_value": "false"
+            }
+          ]
+        },
+        "bg": {
+          "color": {
+            "_label": "Background color",
+            "_type": "select",
+            "_options": [
+              {
+                "_label": "Blue",
+                "_value": "blue"
+              },
+              {
+                "_label": "Light blue",
+                "_value": "light-blue"
+              },
+              {
+                "_label": "Dark blue",
+                "_value": "dark-blue"
+              },
+              {
+                "_label": "None",
+                "_value": null
+              }
+            ]
+          },
+          "image": {
+            "_label": "Background image (leave empty for none)",
+            "_type": "file"
+          }
+        }
+      }
+    }
+  }
+}

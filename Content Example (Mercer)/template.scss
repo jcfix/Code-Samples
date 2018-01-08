@@ -1,0 +1,525 @@
+@import '../../css/inc/bourbon/bourbon';
+@import '../../css/inc/neat/neat';
+@import '../../css/vars';
+@import '../../css/mixins';
+
+.slide {
+  opacity: 0;
+  padding-top: 60px;
+  transition: all 1200ms ease;
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
+.template-content-basic {
+  padding-bottom: 0;
+
+  .template-wrapper {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+    padding: 120px 0px;
+    position: relative;
+    min-height: calc(100vh - 60px);
+
+    @include media($desktop) {
+      @include clearfix;
+    }
+
+    h1 {
+      color: $blue;
+    }
+
+    h3 {
+      color: $light-blue;
+    }
+
+    li {
+      &:before {
+        content: url('img/bullet-blue.svg');
+        left: 18px;
+        margin-top: -2px;
+        position: absolute;
+      }
+    }
+
+    ul {
+      list-style: none;
+      li {
+        &:before {
+          content: url('img/large-bullet-blue.svg');
+          left: 0;
+          margin-top: 0;
+        }
+      }
+    }
+
+    video {
+      border-top: 6px solid $light-blue;
+      @include media($tablet) {
+        border-width: 8px;
+      }
+    }
+
+    &.invert-true, &.blue, &.light-blue, &.dark-blue {
+      h1, h2, h3, h4, h5, h6, p, ul, li {
+        color: $white;
+      }
+
+      li {
+        &:before {
+          content: url('img/bullet.svg');
+        }
+      }
+
+      ul {
+        li {
+          &:before {
+            content: url('img/large-bullet-white.svg');
+          }
+        }
+      }
+
+      .down-arrow {
+        polyline {
+          stroke: $white;
+        }
+      }
+
+      .global-nav-close {
+        background-color: $blue-accent;
+        &:hover {
+          background-color: $light-blue-accent;
+        }
+      }
+    }
+
+    &.blue {
+      background-color: $blue;
+    }
+
+    &.light-blue {
+      background-color: $light-blue;
+      video {
+        border-top: 6px solid $blue;
+        @include media($tablet) {
+          border-width: 8px;
+        }
+      }
+    }
+
+    &.dark-blue {
+      background-color: $dark-blue;
+    }
+
+    &.center-video {
+      // same rules for vertical-true and vertical-false for IE
+      .content-wrapper {
+        @include display(flex);
+        @include flex-direction(column-reverse);
+        @include align-items(center);
+        .content {
+          padding-left: 2em;
+          padding-right: 2em;
+          width: 100%;
+          @include media($tablet) {
+            padding-left: 8em;
+            padding-right: 8em;
+          }
+          @include media($desktop) {
+            padding: 0em;
+          }
+        }
+        .asset {
+          margin: 40px 35px 0px;
+          padding-left: 2em;
+          padding-right: 2em;
+          width: 100%;
+          @include media($tablet) {
+            padding-left: 8em;
+            padding-right: 8em;
+          }
+          @include media($desktop) {
+            padding: 0em;
+          }
+          &.hero {
+            margin: 40px auto 0px;
+            padding-left: 0em;
+            padding-right: 0em;
+          }
+        }
+      }
+    } // .center-video
+
+    &.vertical-true {
+      @include display(flex);
+      @include flex-direction(column);
+      @include justify-content(center);
+      @include align-items(center);
+
+      &.asset-true {
+        height: auto;
+      }
+
+      .content-wrapper {
+        // have to specify widths and padding instead of margins for IE. Otherwise text will overflow flexbox.
+        &.content-left, &.content-right {
+          width: 100%;
+          @include align-items(center);
+          .content {
+            padding-left: 2em;
+            padding-right: 2em;
+            width: 100%;
+            @include media($desktop) {
+              width: 50%;
+           }
+          }
+          .asset {
+            padding-left: 2em;
+            padding-right: 2em;
+            width: 100%;
+            &.hero {
+              padding-left: 0em;
+              padding-right: 0em;
+            }
+            @include media($desktop) {
+              width: 50%;
+            }
+          }
+
+          &.asset-false {
+            &.video-false {
+              .asset {
+                display: none;
+              }
+            }
+          }
+        }
+
+        &.content-left {
+          &.asset-right {
+            .content {
+              @include media($tablet) {
+                padding-left: 8em;
+                padding-right: 8em;
+              }
+              @include media($desktop) {
+                padding-right: 0em;
+              }
+            }
+            .asset {
+              @include media($tablet) {
+                padding-left: 8em;
+                padding-right: 8em;
+              }
+              @include media($desktop) {
+                padding-left: 50px;
+                margin-bottom: 0px;
+              }
+              &.video-true {
+                height: 100%; // Fix for IE bug where auto video height pushes text down
+              }
+            }
+          }
+
+          // styles for vertically-centered text-only content-left
+          &.asset-false {
+            &.video-false {
+              padding: 0;
+              @include media($desktop) {
+                padding: 0 10%;
+              }
+              .asset {
+                display: none;
+              }
+              .content {
+                padding: 0em;
+                margin: 0 35px;
+                width: auto;
+                @include media($tablet) {
+                  margin: 0 136px;
+                }
+                @include media($desktop) {
+                  margin: 0 auto;
+                  width: 50%;
+                }
+              }
+            }
+          }
+        }
+
+        &.content-right {
+          &.asset-left {
+            @include display(flex);
+            @include flex-direction(column);
+            @include media($desktop) {
+              @include flex-direction(row);
+            }
+            .content {
+              @include media($tablet) {
+                padding-left: 8em;
+                padding-right: 8em;
+              }
+              @include media($desktop) {
+                padding-left: 0em;
+              }
+            }
+            .asset {
+              margin: 0 auto 40px;
+              @include media($tablet) {
+                padding-left: 8em;
+                padding-right: 8em;
+              }
+              @include media($desktop) {
+                padding-right: 50px;
+                margin-bottom: 0px;
+              }
+              &.video-true {
+                height: 100%; // Fix for IE bug where auto video height pushes text down
+              }
+            }
+          }
+          // styles for vertically-centered text-only content-right
+          &.asset-false {
+            &.video-false {
+              padding: 0;
+              @include media($desktop) {
+                padding: 0 10%;
+              }
+              .asset {
+                display: none;
+              }
+              .content {
+                padding: 0em;
+                margin: 0 35px;
+                width: auto;
+                @include media($tablet) {
+                  margin: 0 136px;
+                }
+                @include media($desktop) {
+                  margin: 0 auto;
+                  width: 50%;
+                }
+              }
+            }
+          }
+        }
+      }
+    } // .vertical-true
+
+    .content-wrapper {
+      margin: 0 auto;
+      max-width: 1300px;
+
+      @include media($desktop) {
+        margin: 0 10%;
+      }
+
+      &.content-center {
+        max-width: 100%;
+      }
+
+      &.content-left, &.content-right {
+        @include media($desktop) {
+          .content {
+            width: 50%;
+          }
+
+          .asset {
+            width: 50%;
+          }
+        }
+      }
+
+      &.content-left {
+
+        &.asset-false {
+          &.video-false {
+            .content {
+              @include media($desktop) {
+                float: left;
+              }
+            }
+          }
+        }
+
+        &.asset-right {
+          @include display(flex);
+          @include flex-direction(column-reverse);
+          @include media($desktop) {
+            @include flex-direction(row-reverse);
+          }
+
+          .content {
+            @include media($desktop) {
+              padding-right: 50px;
+            }
+          }
+
+          .asset {
+            margin: 40px 35px 0px;
+            @include media($desktop) {
+              margin: 0px auto;
+            }
+
+            &.hero {
+              margin: 40px auto 0px;
+              @include media($desktop) {
+                margin: 0px auto;
+              }
+            }
+          }
+        }
+      } // .content-left
+
+      &.content-right {
+
+        &.asset-false {
+          &.video-false {
+            .content {
+              @include media($desktop) {
+                float: right;
+              }
+            }
+          }
+        }
+
+        &.asset-left {
+          @include media($desktop) {
+            @include display(flex);
+            @include flex-direction(row);
+          }
+
+          .content {
+            @include media($desktop) {
+              padding-left: 50px;
+            }
+          }
+
+          .asset {
+            margin: 0px 35px 40px;
+            @include media($desktop) {
+              margin: 0px auto;
+            }
+
+            &.hero {
+              margin: 0px auto 40px;
+              @include media($desktop) {
+                margin: 0px auto;
+              }
+            }
+          }
+        }
+      } // .content-right
+
+      &.asset-false {
+        &.video-false {
+          .asset {
+            display: none;
+          }
+        }
+      }
+
+      .asset {
+        margin: 0 35px 40px;
+        text-align: center;
+
+        video {
+          max-width: 100%;
+        }
+
+        @include media($tablet) {
+          margin: 0 auto 50px;
+        }
+
+        &.hero {
+          margin: 0 auto 40px;
+
+          @include media($tablet) {
+            margin: 0 auto 50px;
+          }
+        }
+
+        .video {
+          position: relative;
+        }
+
+      } // .asset
+
+      .content {
+        margin: 0 35px;
+        text-align: center;
+
+        @include media($tablet) {
+          margin: 0 136px;
+        }
+
+        @include media($desktop) {
+          margin: 0 auto;
+          max-width: 618px;
+        }
+
+        &.text-left {
+          text-align: left;
+        }
+
+        .body {
+          &> * {
+            opacity: 0;
+            @include transform(translate3d(0, 100px, 0));
+            @include transform-origin(50% 50%);
+            transition: all 1000ms ease;
+
+            &.visible {
+              opacity: 1;
+              @include transform(translate3d(0, 0, 0));
+            }
+
+          }
+          @include media($desktop) {
+            h1 {
+              &.title {
+                font-size: 45px;
+              }
+            }
+          }
+
+        } // .body
+
+      } // .content
+
+    } // .content-wrapper
+
+    .down-arrow {
+      border: none;
+      bottom: 36px;
+      cursor: pointer;
+      display: block;
+      left: 50%;
+      opacity: 0;
+      outline: none;
+      overflow: hidden;
+      position: absolute;
+      @include transform(translate(-50%, 0));
+      @include transition(all 400ms ease);
+
+      &:hover {
+        @include transform(scale(1.2) translate(-50%, 0));
+        @include transform-origin(0% 50%);
+      }
+
+      &.visible {
+        opacity: 1;
+      }
+    }
+
+  } // .template-wrapper
+
+  .global-nav {
+    background: rgba(#fff, 0);
+  }
+
+} // . template-content-basic

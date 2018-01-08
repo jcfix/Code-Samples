@@ -1,0 +1,74 @@
+{% include 'head.html' %}
+{% assign invertnav = false %}
+
+<section class="slide template-{{ template.template_name }} {{ template.template_name }}-{{ lesson.lesson_id | downcase }}">
+
+  {% for section in lesson.sections %}
+  <div class="template-wrapper invert-{{ section.invert }} {% if section.bg.color %}{{ section.bg.color }}{% endif %} {% if section.bg.image %}bg-image{% endif %} vertical-{{ section.centerVertically }} {% if section.image or section.video %}asset-true{% endif %} content-{{ section.textPosition }} {% if section.textPosition == 'center' and section.video %}center-video{% endif %}" style="{% if section.bg.image %}background-image: url('{{ section.bg.image }}');{% endif %}">
+
+    <div class="content-wrapper content-{{ section.textPosition }} {% if section.image == undefined %}asset-false{% endif %} {% if section.video == undefined %}video-false{% endif %} {% if section.textPosition == 'left' and section.image != undefined or section.video != undefined %}asset-right{% endif %} {% if section.textPosition == 'right' and section.image != undefined or section.video != undefined %}asset-left{% endif %}">
+
+      <div class="asset {% if section.heroAsset == 'true' %}hero{% endif %} {% if section.video != undefined %}video-true{% endif %}">
+        {% if section.image %}
+        <img src="{{ section.image }}" alt="Lesson image">
+        {% endif %}
+        {% if section.video %}
+        <div class="video">
+          <video class="main-video" poster="{{ section.video.jpg }}" preload controls>
+                <source src="{{ section.video.mp4 }}" type="video/mp4" />
+                <source src="{{ section.video.webm }}" type="video/webm" />
+          </video>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="content text-{{ section.textAlign }}">
+        <div class="body">
+          {{ section.content.bodyContent }}
+        </div>
+      </div><!-- .content -->
+
+    </div><!-- .content-wrapper -->
+
+    {% if forloop.last != true %}
+    <!-- ^ Show down arrow on all but the last slide -->
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <svg class="down-arrow" width="23px" height="14px" viewBox="0 0 23 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <title>global-nav_arrow-down</title>
+      <desc>Created with Sketch.</desc>
+      <defs></defs>
+      <g id="Basic-v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="basic_desktop_06-scroll" transform="translate(-668.000000, -1793.000000)" stroke-width="3" stroke="#00A8CA">
+          <g id="Bottom-Nav-Copy" transform="translate(0.000000, 1780.000000)">
+            <g id="global-nav_arrow-down-INVERTED" transform="translate(661.000000, 0.000000)">
+              <polyline id="Path-5" transform="translate(19.000000, 19.000000) scale(-1, 1) rotate(90.000000) translate(-19.000000, -19.000000) " points="14.0001337 9 24 18.9999419 14 29"></polyline>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+
+    {% else %}
+      <!-- Make the nav colors inverted if the last slide is inverted -->
+      {% if section.invert == "true" %}
+      {% assign invertnav = true %}
+      {% endif %}
+    {% endif %}
+
+  </div><!-- .template-wrapper -->
+  {% endfor %}
+
+  {% include 'global-nav.html' %}
+
+</section><!-- .slide -->
+
+
+<!-- specific layout script -->
+<script src="{{ templatePath }}/template.js"></script>
+<script>
+  (function() {
+    ContentBasic('.{{ template.template_name }}-{{ lesson.lesson_id | downcase }}');
+  })();
+</script>
+
+{% include 'foot.html' %}

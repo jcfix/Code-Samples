@@ -1,0 +1,339 @@
+@import '../../css/inc/bourbon/bourbon';
+@import '../../css/inc/neat/neat';
+@import '../../css/vars';
+@import '../../css/easings';
+
+.template-findings {
+  margin: 0 48px;
+  padding-top: 140px;
+
+  .instructions {
+    color: $teal;
+    font-size: 12px;
+    margin: 32px 0;
+    text-transform: uppercase;
+  }
+
+  .intro {
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+
+    &> * {
+      opacity: 0;
+      @include transform(translate3d(0, 100px, 0));
+      transition: all 1000ms ease;
+
+      &.visible {
+        opacity: 1;
+        @include transform(translate3d(0, 0, 0));
+      }
+    }
+  }
+
+  .coworkers {
+    margin: 32px auto;
+    opacity: 0;
+    transition: opacity 1000ms ease;
+
+    // display in a row on tablet and up
+    @include media(min-width 600px) {
+      max-width: 990px;
+      width: 100%;
+      @include display(flex);
+      @include justify-content(space-around);
+      @include align-items(flex-start);
+    }
+
+    &.visible {
+      opacity: 1;
+    }
+
+    .coworker {
+      margin: 42px 10px;
+      position: relative;
+
+      @include media(min-width 600px) {
+        margin: 20px 10px;
+      }
+
+      // Imgs displayed before any clicking
+      .initial-image {
+        text-align: center;
+
+        img {
+          max-height: 220px;
+          width: 220px;
+          @include media(min-width 600px) {
+            width: 100%;
+          }
+          @include media(min-width 800px) {
+            width: 220px;
+          }
+        }
+
+        .initial-ring {
+          display: none;
+          position: absolute;
+        }
+
+        .filled-image {
+          display: none;
+        }
+
+        .visited-image {
+          display: none;
+        }
+
+        .title {
+          text-align: center;
+          width: 150px;
+          margin: 20px auto 0 auto;
+          @include media(min-width 800px) {
+            width: auto;
+          }
+        }
+
+        &:hover {
+          cursor: pointer;
+
+          .initial-ring {
+            bottom: 0;
+            display: block;
+            left: 0;
+            margin: 0 auto;
+            right: 0;
+            top: 0;
+            @include transform(scale(1.1));
+          }
+
+          .filled-image {
+            display: block;
+            left: 50%;
+            position: absolute;
+            top: 0;
+            @include transform(translate(-50%, 0));
+          }
+        }
+
+      } // .initial-image
+
+      &.hidden {
+        display: none;
+      }
+
+      &.open {
+        @include media(min-width 800px) {
+          @include display(flex);
+        }
+
+        &:hover {
+          cursor: auto;
+          outline: none;
+        }
+
+        .close {
+          background: #fff url(img/close-btn.svg) center center no-repeat;
+          border: 2px solid $dark-blue;
+          border-radius: 50%;
+          cursor: pointer;
+          display: block;
+          height: 40px;
+          left: -2%;
+          position: absolute;
+          opacity: 0.8;
+          top: -2%;
+          width: 40px;
+          z-index: 1;
+
+          &:hover {
+            cursor: pointer;
+            @include transform(scale(1.1));
+          }
+
+          &:before, &:after {
+            border: 1px solid $light-blue;
+            border-radius: 50%;
+            content: ' ';
+            display: block;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            @include transform(scale(1));
+            @include transform-origin(50% 50%);
+          }
+
+          &:before {
+            height: 48px;
+            margin-left: -24px;
+            margin-top: -24px;
+            width: 48px;
+            @include animation(pulseInner 1400ms ease infinite);
+          }
+
+          &:after {
+            height: 56px;
+            margin-left: -28px;
+            margin-top: -28px;
+            width: 56px;
+            @include animation(pulseOuter 1400ms ease infinite);
+          }
+
+        } // .close
+
+        .visited {
+          display: none;
+        }
+
+      } // .open
+
+      // for coworkers that have been clicked already
+      &.clicked {
+
+        .start-image {
+          display: none;
+        }
+
+        .visited-image {
+          display: block;
+          margin: 0 auto;
+        }
+
+        // add check mark
+        .visited {
+          background: url(img/correct.svg) center center no-repeat;
+          display: block;
+          height: 50px;
+          position: absolute;
+          top: -10%;
+          width: 100%;
+          z-index: 1;
+        }
+
+      } // .clicked
+
+      .column {
+        display: none;
+        position: relative;
+        opacity: 0;
+
+        &.one {
+          @include media(min-width 800px) {
+            padding-right: 125px;
+          }
+
+          .expanded-image {
+            margin-bottom: 20px;
+
+            svg {
+              width: 100%;
+              height: 220px;
+            }
+
+            @include media(min-width 800px) {
+              svg {
+                min-height: 300px;
+                min-width: 300px;
+                width: auto;
+              }
+            }
+
+          } // .expanded-image
+
+          .job-description {
+            padding-bottom: 32px;
+            text-align: center;
+
+            .instructions {
+              margin: 14px 0px;
+            }
+          }
+
+        } // .one
+
+        &.visible {
+          display: block;
+        }
+
+        &.faded {
+          opacity: 1;
+          transition: all 900ms ease;
+        }
+
+        .content {
+
+          // Add transitions to every element in the content div
+          &> * {
+            opacity: 0;
+            @include transform(translate3d(0, 100px, 0));
+            @include transform-origin(50% 50%);
+            transition: all 600ms ease;
+
+            &.visible {
+              opacity: 1;
+              @include transform(translate3d(0, 0, 0));
+            }
+
+          }
+
+          p {
+            padding-bottom: 16px;
+          }
+
+          h1 {
+            font-size: 28px;
+          }
+
+        } // .content
+
+        &.two {
+          @include media(min-width 800px) {
+            max-width: 460px;
+          }
+
+          .heading {
+            text-transform: uppercase;
+          }
+
+          p {
+            color: $teal;
+            padding-bottom: 28px;
+          }
+
+          h1 {
+            margin-bottom: 35px;
+            @include media($desktop) {
+              font-size: 36px;
+            }
+          }
+        } // .two
+
+      } // .column
+
+    } // .coworker
+
+  } // .coworkers
+}
+
+
+@include keyframes(pulseInner) {
+  0% {
+      opacity: 0.8;
+      @include transform(scale(1));
+  }
+  100% {
+      opacity: 0.2;
+      @include transform(scale(1.1));
+  }
+}
+
+@include keyframes(pulseOuter) {
+  0% {
+      opacity: 0.8;
+      @include transform(scale(1));
+  }
+  100% {
+      opacity: 0.2;
+      @include transform(scale(1.2));
+  }
+}
